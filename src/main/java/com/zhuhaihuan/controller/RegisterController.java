@@ -7,11 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.zhuhaihuan.service.UserService;
 @Controller 
-@RequestMapping("/register.do")
 public class RegisterController {
 	@Autowired
 	private UserService userService; 
-	@RequestMapping
+	@RequestMapping("/register")
+	public String registerView(HttpServletRequest request, Model model){
+		return "register";
+	}
+	@RequestMapping("/register.do")
     public String regster(HttpServletRequest request, Model model) {
 		Map<String, String[]> params = request.getParameterMap();
 		userService.addUser(params);

@@ -7,6 +7,18 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <insert id="add" parameterType="Message"
      useGeneratedKeys="true" keyProperty="id"> 
         INSERT INTO message(uid,content,createtime,updatetime) 
-        VALUES(#{uid},#{content},#{createtime},#{updatetime}) 
-    </insert> 
+        VALUES(#{user.uid},#{content},#{createtime},#{updatetime}) 
+    </insert>
+    <select id="findAllMessage" resultMap="MessageResultMap">  
+        select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email  
+        from message m left join user u on m.uid = u.uid  
+    </select>  
+    <resultMap type="Message" id="MessageResultMap">  
+        <id property="id" column="id" />  
+        <result property="content" column="content" />  
+        <result property="createtime" column="createtime" />  
+        <result property="updatetime" column="updatetime" />  
+        <association property="user" column="uid"  
+            javaType="User" resultMap="com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.userResultMap" />  
+    </resultMap> 
 </mapper>

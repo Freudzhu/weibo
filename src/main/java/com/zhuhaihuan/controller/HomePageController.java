@@ -1,11 +1,14 @@
 package com.zhuhaihuan.controller;
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.zhuhaihuan.domain.Message;
 import com.zhuhaihuan.domain.User;
 import com.zhuhaihuan.service.MessageService;
 import com.zhuhaihuan.service.UserService;
@@ -23,7 +26,9 @@ public class HomePageController {
 		User user = userService.getCurrentUser(request.getSession());
 		log.info(user.toString());
 		String content = request.getParameter("message");
-		messageService.addMessage(user.getUid(), content);
+		messageService.addMessage(user, content);
+		List<Message> messages = messageService.getMessages();
+		model.addAttribute("messages", messages);
 		return "home";
 	}
 

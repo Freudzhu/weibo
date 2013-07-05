@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
+<%@taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %>
 <html>
 <head>
 	<meta content='text/html; charset=UTF-8' http-equiv='content-type'>
@@ -20,16 +21,22 @@
 	</form>
 	<table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
 		<thead>
-		<tr><th><hr></th></tr>
+		<tr><th></th></tr>
 		</thead>
 		<tbody>
-	
-		    	<tr>
-			    	<td style='vertical-align:top;'>
-			    	<a href='delete.do?message='>删除</a>
-			    	<hr>
-			    	</td>
-		    	</tr>
+				<c:forEach var="message" items="${messages}">
+		    		<tr>
+			    	
+			    		<td style='vertical-align:top;'>
+                		${message.getUser().getUsername()}<br>
+                		${message.getContent()}<br>
+                		${message.getCreatetime()}<br>
+                		<hr>
+                		</td>
+                		
+		    		</tr>
+		    		
+		    	</c:forEach>
 		</tbody>
 	</table>
 	<hr style='width: 100%; height: 1px;'>

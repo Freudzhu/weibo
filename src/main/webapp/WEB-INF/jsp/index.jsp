@@ -19,7 +19,7 @@
                </ul>
         </div>
         <div>
-            <a href='jsp/register.jsp'>还不是会员？</a><p>
+            <a href='register'>还不是会员？</a><p>
             <div style='color: rgb(255, 0, 0);'>${errMsg}</div>
             <form method='post' action='login.do'>
                 <table bgcolor='#cccccc'>

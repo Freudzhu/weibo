@@ -5,9 +5,9 @@
     <head>
         <title>Gossip 微网志</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="../css/register.css" type="text/css">
-        <script src="../js/jquery-1.9.0.min.js" type="text/javascript"></script>
-		<script src="../js/jquery.validate.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="/weibo/css/register.css" type="text/css">
+        <script src="/weibo/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+		<script src="/weibo/js/jquery.validate.min.js" type="text/javascript"></script>
         <script type="text/javascript">
 	        jQuery(function($){
 	        	$('#registerForm').validate({

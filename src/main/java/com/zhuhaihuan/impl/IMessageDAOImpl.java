@@ -1,4 +1,5 @@
 package com.zhuhaihuan.impl;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 import com.zhuhaihuan.dao.IMessageDAO;
 import com.zhuhaihuan.domain.Message;
@@ -14,5 +15,11 @@ public class IMessageDAOImpl  extends BasicSqlSupport implements IMessageDAO{
 	          flag=true; 
 	     } 
 	     return flag;
+	}
+	@Override
+	public List<Message> getMessages() {
+		// TODO Auto-generated method stub
+		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.message.findAllMessage"); 
+
 	}
 }

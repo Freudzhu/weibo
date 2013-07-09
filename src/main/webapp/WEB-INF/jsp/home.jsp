@@ -10,10 +10,10 @@
 <body>
 	<div class='leftPanel'>
 		<img src='image/caterpillar.jpg' alt='Gossip 微网志' /><br><br>
-		<a href='logout.do?username="${ sessionScope.login }'>
+		<a href='/weibo/logout.do'>
                             登出 ${ sessionScope.login }</a>
 	</div>
-	<form method='post' action='publish'>
+	<form method='post' action='/weibo/status/publish'>
 	分享新鲜事...<br>
 	<textarea cols='60' rows='4' name='message'></textarea><br>
 	<br>
@@ -24,13 +24,13 @@
 		<tr><th></th></tr>
 		</thead>
 		<tbody>
-				<c:forEach var="message" items="${messages}">
+				<c:forEach var="status" items="${statuses}">
 		    		<tr>
 			    	
 			    		<td style='vertical-align:top;'>
-                		${message.getUser().getUsername()}<br>
-                		${message.getContent()}<br>
-                		${message.getCreatetime()}<br>
+                		${status.getUser().getUsername()}<br>
+                		${status.getContent()}<br>
+                		${status.getCreatetime()}<br>
                 		<hr>
                 		</td>
                 		

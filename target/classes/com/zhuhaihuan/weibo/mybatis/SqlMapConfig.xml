@@ -6,12 +6,12 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
     <typeAliases> 
         <typeAlias type="com.zhuhaihuan.domain.User" 
         	alias="User" /> 
-        <typeAlias type="com.zhuhaihuan.domain.Message" 
-        	alias="Message" /> 
+        <typeAlias type="com.zhuhaihuan.domain.Status" 
+        	alias="Status" /> 
     </typeAliases> 
     <mappers> 
         <!-- 对应Bean类的xml配置文件的路径信息 --> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/User.xml" /> 
-        <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Message.xml" /> 
+        <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Status.xml" /> 
     </mappers> 
 </configuration>

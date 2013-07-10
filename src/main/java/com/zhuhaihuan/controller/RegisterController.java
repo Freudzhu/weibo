@@ -18,7 +18,7 @@ public class RegisterController {
     public String regster(HttpServletRequest request, Model model) {
 		Map<String, String[]> params = request.getParameterMap();
 		userService.addUser(params);
-		return "regster";
+		return "index";
 		
 	}
 }

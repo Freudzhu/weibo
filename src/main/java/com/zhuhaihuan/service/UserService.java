@@ -1,5 +1,6 @@
 package com.zhuhaihuan.service;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.beanutils.BeanUtils;
@@ -47,6 +48,10 @@ public class UserService {
 		else{
 			return false;
 		}
+	}
+	public List<User> searchUser(String username){
+		List<User> resultUsers = userDao.searchUser("%" + username + "%");
+		return resultUsers;
 	}
 	public User getCurrentUser(HttpSession session){
 		return SessionHelper.getCurrentUser(session);

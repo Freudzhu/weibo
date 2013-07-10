@@ -13,7 +13,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         select * FROM user where username = #{username} and password = #{password}
     </select>
     <select id="findAllUser" resultType="User" parameterType="User"> 
-        select * FROM user where username
+        select * FROM user
+    </select>
+     <select id="searchUser" resultType="User" parameterType="String"> 
+        select * FROM user where username like #{username}
     </select>
     <resultMap type="User" id="userResultMap">  
     	<id property="uid" column="uid" />  

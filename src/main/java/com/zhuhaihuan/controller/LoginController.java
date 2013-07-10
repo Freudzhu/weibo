@@ -30,7 +30,7 @@ public class LoginController {
 		}
 		User user = userService.getCurrentUser(request.getSession());
 		SessionHelper.doLogin(user, request.getSession());
-		return  ModelHelper.redirect("/timeline/" + user.getUid());
+		return  ModelHelper.redirect(user.getUid()  + "/statuses" + "/timeline");
 	}
 	@RequestMapping("/logout.do")
     public String logout(HttpServletRequest request, Model model) {

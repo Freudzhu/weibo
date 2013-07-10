@@ -5,15 +5,21 @@
 <head>
 	<meta content='text/html; charset=UTF-8' http-equiv='content-type'>
 	<title>Gossip 微网志</title>
-	<link rel='stylesheet' href='css/member.css' type='text/css'>
+	<link rel='stylesheet' href="${ctxtPath}/css/member.css" type='text/css'>
 </head>
 <body>
 	<div class='leftPanel'>
-		<img src='image/caterpillar.jpg' alt='Gossip 微网志' /><br><br>
+		<img src="${ctxtPath}/image/caterpillar.jpg" alt='Gossip 微网志' /><br><br>
 		<a href='/weibo/logout.do'>
                             登出 ${ sessionScope.login }</a>
 	</div>
-	<form method='post' action='/weibo/status/publish'>
+	<div class='rightPanel'>
+		 <form id="search" method="get" action="/weibo/users/search">
+              <input type="text" id="query" name="query" value=""/>
+              <button type="submit">查找用户</button>>
+          </form>
+	</div>
+	<form method='post' action="/weibo/${user.getUid()}/statuses/publish">
 	分享新鲜事...<br>
 	<textarea cols='60' rows='4' name='message'></textarea><br>
 	<br>

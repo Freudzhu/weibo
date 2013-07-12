@@ -5,7 +5,7 @@
 <head>
 	<meta content='text/html; charset=UTF-8' http-equiv='content-type'>
 	<title>Gossip 微网志</title>
-	<link rel='stylesheet' href="${ctxtPath}/css/member.css" type='text/css'>
+	<link rel='stylesheet' href="${ctxtPath}/css/home.css" type='text/css'>
 </head>
 <body>
 	<div class='leftPanel'>
@@ -13,10 +13,28 @@
 		<a href='/weibo/logout.do'>
                             登出 ${ sessionScope.login }</a>
 	</div>
+	<ul class="user_attent">
+		<li>
+			<span>关注 </span>
+			<strong>(${attentionCount})</strong>
+			
+		</li>
+		<li>
+		    <span>粉丝 </span>
+			<strong>(${followerCount})</strong>
+			
+		</li>
+		<li>
+		    <span>微博 </span>
+			<strong>(${statusCount})</strong>
+			
+		</li>
+	</ul>
+	<br>
 	<div class='rightPanel'>
 		 <form id="search" method="get" action="/weibo/users/search">
               <input type="text" id="query" name="query" value=""/>
-              <button type="submit">查找用户</button>>
+              <button type="submit">查找用户</button>
           </form>
 	</div>
 	<form method='post' action="/weibo/${user.getUid()}/statuses/publish">
@@ -24,7 +42,10 @@
 	<textarea cols='60' rows='4' name='message'></textarea><br>
 	<br>
 	<button type='submit'>送出</button>
+	
 	</form>
+	
+	
 	<table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
 		<thead>
 		<tr><th></th></tr>

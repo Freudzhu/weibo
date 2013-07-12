@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.zhuhaihuan.domain.Status;
 import com.zhuhaihuan.domain.User;
+import com.zhuhaihuan.service.AttentionService;
 import com.zhuhaihuan.service.StatusService;
 import com.zhuhaihuan.service.UserService;
 import com.zhuhaihuan.web.ModelHelper;
@@ -18,6 +19,9 @@ public class StatusController {
 	private StatusService statusService;
 	@Autowired
 	private UserService userService;
+	@Autowired 
+	AttentionService attentionService;
+	
 	
 	private Logger log =Logger.getLogger(getClass());
 	
@@ -36,7 +40,14 @@ public class StatusController {
 		ModelHelper.init(model, request);
 		User user = userService.getCurrentUser(request.getSession());
 		List<Status> statuses = statusService.getStatus(user);
+		List<Status> myStatus = statusService.getStatus(user);
+		long followerCount = attentionService.followerCount(user.getUid().toString());
+		long attentionCount = attentionService.attentionerCount(user.getUid().toString());
+		model.addAttribute("statusCount", myStatus.size());
+		model.addAttribute("followerCount",followerCount);
+		model.addAttribute("attentionCount",attentionCount);
 		model.addAttribute("statuses", statuses);
+		model.addAttribute("user", user);
 		return "home";
 	}
 

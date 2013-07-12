@@ -19,7 +19,14 @@
 			    	<td style='vertical-align:top;'>
                 		${u.username}<br>
                 		${u.email}<br>
-                		<a href="/weibo//${user.uid}/attentions/follow?uuid=${u.uid}">加关注</a>
+                		<c:choose> 
+                			<c:when test="${followRelation.get(u)}">
+                			    <a href="/weibo//${user.uid}/attentions/unfollow?uuid=${u.uid}&query=${query}">取消关注</a>  
+                			</c:when>
+                			<c:otherwise>
+                				<a href="/weibo//${user.uid}/attentions/follow?uuid=${u.uid}&query=${query}">加关注</a> 
+       						</c:otherwise>
+                		</c:choose>
                 		<hr>
                 	</td>
                 		

@@ -20,7 +20,12 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 	@Override
 	public List<Status> getALLStatus(User user) {
 		// TODO Auto-generated method stub
-		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findAllStatus",user); 
+		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findStatusesByUser",user); 
 
+	}
+	@Override
+	public List<Status> getMyStatus(User user) {
+		// TODO Auto-generated method stub
+		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findMyStatus",user); 
 	}
 }

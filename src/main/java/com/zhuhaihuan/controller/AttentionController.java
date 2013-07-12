@@ -18,8 +18,17 @@ public class AttentionController {
 	@RequestMapping(value="/follow",method=RequestMethod.GET)
     public String follow(HttpServletRequest request, Model model) {
 		String uuid = request.getParameter("uuid");
+		String query = request.getParameter("query");
 		String uid = userService.getCurrentUser(request.getSession()).getUid().toString();
 		attentionService.follow(userService.getCurrentUser(request.getSession()).getUid().toString(), uuid);
-		return ModelHelper.redirect("/users/search");
+		return ModelHelper.redirect("/users/search?query="+query);
+	}
+	@RequestMapping(value="/unfollow",method=RequestMethod.GET)
+	public String unfollow(HttpServletRequest request, Model model) {
+		String uuid = request.getParameter("uuid");
+		String query = request.getParameter("query");
+		String uid = userService.getCurrentUser(request.getSession()).getUid().toString();
+		attentionService.unFollow(userService.getCurrentUser(request.getSession()).getUid().toString(), uuid);
+		return ModelHelper.redirect("/users/search?query="+query);
 	}
 }

@@ -9,9 +9,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         INSERT INTO status(uid,content,createtime,updatetime) 
         VALUES(#{user.uid},#{content},#{createtime},#{updatetime}) 
     </insert>
-    <select id="findAllStatus" resultMap="statusResultMap" parameterType="User">  
+    <select id="findStatusesByUser" resultMap="statusResultMap" parameterType="User">  
         select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email  
-        from status m left join user u on m.uid = u.uid where u.username = #{username} 
+        from status m,user u where m.uid=u.uid and m.uid in (select uuid from attention a where a.uid= ${uid})  
     </select>  
     <resultMap type="Status" id="statusResultMap">  
         <id property="id" column="id" />  
@@ -20,5 +20,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         <result property="updatetime" column="updatetime" />  
         <association property="user" column="uid"  
             javaType="User" resultMap="com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.userResultMap" />  
-    </resultMap> 
+    </resultMap>
+    <select id="findMyStatus" resultMap="statusResultMap" parameterType="User">  
+        select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email  
+        from status m,user u where m.uid=u.uid and m.uid = ${uid}
+    </select>  
+    
 </mapper>

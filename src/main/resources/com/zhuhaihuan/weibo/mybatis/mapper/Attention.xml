@@ -9,4 +9,16 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         INSERT INTO attention(uid,uuid) 
         VALUES(#{uid},#{uuid}) 
     </insert>
+    <select id="isfollow" parameterType="Attention" resultType="Integer"> 
+        select count(*) from attention where uid=#{uid} and uuid=#{uuid}
+    </select>
+    <delete id="unfollow" parameterType="Attention"> 
+        delete from attention where uid=#{uid} and uuid=#{uuid}
+    </delete>
+    <select id="followerCount" parameterType="String" resultType="Long"> 
+        select count(*) from attention where uid=#{uid}
+    </select>
+     <select id="attentionerCount" parameterType="String" resultType="Long"> 
+        select count(*) from attention where uuid=#{uid}
+    </select>
 </mapper>

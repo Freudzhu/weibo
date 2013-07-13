@@ -1,7 +1,11 @@
 package com.zhuhaihuan.impl;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 import com.zhuhaihuan.dao.IStatusDAO;
+import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
 import com.zhuhaihuan.domain.User;
 import com.zhuhaihuan.util.BasicSqlSupport;
@@ -18,9 +22,14 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 	     return flag;
 	}
 	@Override
-	public List<Status> getALLStatus(User user) {
+	public List<Status> getALLStatus(Page<Status> page,User user) {
 		// TODO Auto-generated method stub
-		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findStatusesByUser",user); 
+		Map<String, Object> param=new HashMap<String, Object>();  
+        param.put("uid", user.getUid());  
+        param.put("page", page);  
+        List<Status> allStatus = this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findStatusesByUser",param); 
+        page.setResults(allStatus);
+        return allStatus;
 
 	}
 	@Override

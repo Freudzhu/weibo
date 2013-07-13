@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN'>
 <%@taglib uri= "http://java.sun.com/jsp/jstl/core" prefix= "c" %>
+<%@taglib prefix="pageBar" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
 	<meta content='text/html; charset=UTF-8' http-equiv='content-type'>
@@ -66,6 +67,7 @@
 		    	</c:forEach>
 		</tbody>
 	</table>
+	<pageBar:PageBar pageAttrKey="pagedStatus"  pageUrl="/${user.getUid()}/statuses/timeline"/>
 	<hr style='width: 100%; height: 1px;'>
 	</body>
 	</html>

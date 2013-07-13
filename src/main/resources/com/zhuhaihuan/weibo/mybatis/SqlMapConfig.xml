@@ -9,12 +9,20 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
         <typeAlias type="com.zhuhaihuan.domain.Status" 
         	alias="Status" /> 
         <typeAlias type="com.zhuhaihuan.domain.Attention" 
-        	alias="Attention" /> 
+        	alias="Attention" />
+        <typeAlias type="com.zhuhaihuan.domain.Page" 
+        	alias="Page" /> 
     </typeAliases> 
+    <plugins>  
+       <plugin interceptor="com.zhuhaihuan.util.PageInterceptor">  
+           <property name="databaseType" value="Mysql"/>  
+       </plugin>  
+    </plugins>  
     <mappers> 
         <!-- 对应Bean类的xml配置文件的路径信息 --> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/User.xml" /> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Status.xml" /> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Attention.xml" /> 
     </mappers> 
+    
 </configuration>

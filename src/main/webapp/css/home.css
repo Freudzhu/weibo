@@ -1,14 +1,42 @@
 ul, menu, dir {
 display: block;
 list-style-type: disc;
--webkit-margin-before: 1em;
--webkit-margin-after: 1em;
--webkit-margin-start: 0px;
--webkit-margin-end: 0px;
--webkit-padding-start: 40px;
-   
+margin:0;
 }
 li {     
-   text-align: center;   
- 	float: left;
-}   
+   text-align: center; 
+   list-style:none;  
+}
+div#container{
+	width:100%
+}
+div#header {
+	background-color:#99bbbb;
+	text-align:center;
+}
+div#menu {
+	float: left;
+	width: 150px;
+	overflow: hidden;
+	min-height: 800px;
+	background-color:#ffff99;
+	margin-left:300px;
+}
+div#content {
+	width: 600px;
+	min-height: 800px;
+	background-color:#EEEEEE; float:left;
+}
+div#userinfo{
+	min-height: 800px;
+	background-color:#ffff99;width:10%; float:left;
+}
+div#footer {
+	background-color:#99bbbb;clear:both;text-align:center;
+}
+h1 {
+	margin-bottom:0;
+}
+h2 {
+	margin-bottom:0; font-size:14px;
+}

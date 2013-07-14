@@ -9,50 +9,38 @@
 	<link rel='stylesheet' href="${ctxtPath}/css/home.css" type='text/css'>
 </head>
 <body>
-	<div class='leftPanel'>
-		<img src="${ctxtPath}/image/caterpillar.jpg" alt='Gossip 微网志' /><br><br>
-		<a href='/weibo/logout.do'>
-                            登出 ${ sessionScope.login }</a>
+<div id="container">
+	<div id="header">
+		<h1>XX微博</h1>
 	</div>
-	<ul class="user_attent">
-		<li>
-			<span>关注 </span>
-			<strong>(${attentionCount})</strong>
-			
-		</li>
-		<li>
-		    <span>粉丝 </span>
-			<strong>(${followerCount})</strong>
-			
-		</li>
-		<li>
-		    <span>微博 </span>
-			<strong>(${statusCount})</strong>
-			
-		</li>
-	</ul>
-	<br>
-	<div class='rightPanel'>
-		 <form id="search" method="get" action="/weibo/users/search">
-              <input type="text" id="query" name="query" value=""/>
-              <button type="submit">查找用户</button>
-          </form>
+	<div id="menu">
+		<ul>
+			<li>首页</li>
+			<li>消息</li>
+			<li>收藏</li>
+		</ul>
 	</div>
-	<form method='post' action="/weibo/${user.getUid()}/statuses/publish">
-	分享新鲜事...<br>
-	<textarea cols='60' rows='4' name='message'></textarea><br>
-	<br>
-	<button type='submit'>送出</button>
+	<div id="content">
+			<img src="${ctxtPath}/image/caterpillar.jpg" alt='Gossip 微网志' /><br><br>
+			<div class='rightPanel'>
+			 <form id="search" method="get" action="/weibo/users/search">
+            	  <input type="text" id="query" name="query" value=""/>
+              	  <button type="submit">查找用户</button>
+          	</form>
+		</div>
+		<form method='post' action="/weibo/${user.getUid()}/statuses/publish">
+			分享新鲜事...<br>
+			<textarea cols='60' rows='4' name='message'></textarea><br>
+			<br>
+			<button type='submit'>送出</button>
 	
-	</form>
-	
-	
-	<table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
-		<thead>
-		<tr><th></th></tr>
-		</thead>
-		<tbody>
-				<c:forEach var="status" items="${statuses}">
+		</form>
+			<table style='text-align: left; width: 510px; height: 88px;' border='0' cellpadding='2' cellspacing='2'>
+				<thead>
+					<tr><th></th></tr>
+				</thead>
+				<tbody>
+					<c:forEach var="status" items="${statuses}">
 		    		<tr>
 			    	
 			    		<td style='vertical-align:top;'>
@@ -60,14 +48,34 @@
                 		${status.getContent()}<br>
                 		${status.getCreatetime()}<br>
                 		<hr>
-                		</td>
-                		
+                		</td>	
 		    		</tr>
 		    		
-		    	</c:forEach>
-		</tbody>
-	</table>
-	<pageBar:PageBar pageAttrKey="pagedStatus"  pageUrl="/${user.getUid()}/statuses/timeline"/>
-	<hr style='width: 100%; height: 1px;'>
-	</body>
-	</html>
+		    		</c:forEach>
+				</tbody>
+			</table>
+			<pageBar:PageBar pageAttrKey="pagedStatus"  pageUrl="/${user.getUid()}/statuses/timeline"/>
+			<hr style='width: 100%; height: 1px;'>
+	</div>
+	<div id="userinfo">
+		<a href='/weibo/logout.do'>登出 ${ sessionScope.login }</a>
+		<ul class="user_attent">
+			<li>
+				<span>关注 </span>
+				<strong>(${attentionCount})</strong>
+			</li>
+			<li>
+		   	 	<span>粉丝 </span>
+				<strong>(${followerCount})</strong>
+			
+			</li>
+			<li>
+		    <span>微博 </span>
+			<strong>(${statusCount})</strong>		
+			</li>
+		</ul>
+	</div>
+	<div id="footer">CopyRight zhuhiahuan</div>
+</div>
+</body>
+</html>

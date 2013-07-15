@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
@@ -29,15 +31,14 @@ public class StatusController {
 	
 	private Logger log =Logger.getLogger(getClass());
 	
-	@RequestMapping("/publish")
-    public String publish(HttpServletRequest request, Model model) {
+	@RequestMapping(value="/publish",method=RequestMethod.POST)
+    public @ResponseBody String publish(HttpServletRequest request, Model model) {
 		ModelHelper.init(model, request);
 		User user = userService.getCurrentUser(request.getSession());
 		log.info(user.toString());
 		String content = request.getParameter("message");
-		statusService.addStatus(user,content);
-		
-		return ModelHelper.redirect("timeline");
+		statusService.addStatus(user,content);		
+		return "success";
 	}
 	@RequestMapping("/timeline")
     public String showTimeline(HttpServletRequest request, Model model) {

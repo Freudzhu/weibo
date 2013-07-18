@@ -9,16 +9,24 @@
 	<link rel='stylesheet' href="${ctxtPath}/css/home.css" type='text/css'>
 	<script src="/weibo/js/jquery-1.9.0.min.js" type="text/javascript"></script>
 	<script type="text/javascript">
-		function show_comments(id){
-			var comments_area="<textarea style='overflow:hidden;margin:10px;width:450px;word-wrap: break-word;line-height: 18px;overflow-y:visible;'></textarea>";
-			if($("#"+id+" textarea").length == 0) {
-				$("#"+id).append(comments_area);
-			}else{
-				$("#"+id).empty();
-			}
-				
-
-		}
+		$(document).ready(function(){
+			  $(".wb_form").on('click','.do_comment',function(){
+				  var comments_area="<textarea class='coment_content'></textarea>";
+				  var button = "<button class='comment_button' type='button'>评论</button>";
+				  var comment_detail = $(this).closest(".wb_bottom").find(".comments_detail");
+				  if(comment_detail.find(".coment_content").length == 0){
+					  comment_detail.append(comments_area+button);
+				  }
+				  else{
+					  comment_detail.empty();
+				  }
+			  });
+			  $(".comments_detail").on('click','.comment_button',function(){
+				  var comment = $(this).closest(".comments_detail").find(".coment_content").val();
+				  alert(comment);
+			  }); 
+			  
+	    });
 		
 		
 	</script>
@@ -91,12 +99,14 @@
 								<i class="S_txt3">|</i>
 								<a href="javascript:void(0);">收藏(2)</a>
 								<i class="S_txt3">|</i>
-								<a href="javascript:void(0);" onclick="show_comments('${status.getId()}')">评论(10)</a>
+								<a href="javascript:void(0);" class="do_comment">评论(10)</a>
+								
+							</div>
+							<div class="comments_detail" data-statusid='${status.getId()}'>
+							
 							</div>
 						</div>
-						<div id='${status.getId()}' class="comments">
-							
-						</div>
+						
 					
 					</div>
 				</div>

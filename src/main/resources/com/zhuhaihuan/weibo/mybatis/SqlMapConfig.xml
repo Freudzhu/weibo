@@ -12,6 +12,8 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
         	alias="Attention" />
         <typeAlias type="com.zhuhaihuan.domain.Page" 
         	alias="Page" /> 
+        	<typeAlias type="com.zhuhaihuan.domain.Comments" 
+        	alias="Comments" /> 
     </typeAliases> 
     <plugins>  
        <plugin interceptor="com.zhuhaihuan.util.PageInterceptor">  

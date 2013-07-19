@@ -11,41 +11,50 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			  $(".wb_form").on('click','.do_comment',function(){
-				  var comments_area="<textarea class='coment_content'></textarea>";
+				  var comments_area="<textarea class='comment_content'></textarea>";
 				  var button = "<button class='comment_button' type='button'>评论</button>";
 				  var comment_detail = $(this).closest(".wb_bottom").find(".comments_detail");
-				  if(comment_detail.find(".coment_content").length == 0){
-					  comment_detail.append(comments_area+button);
+				  if(comment_detail.find(".comment_content").length > 0){
+					  comment_detail.empty();
+					  
 				  }
 				  else{
-					  comment_detail.empty();
+					  comment_detail.append(comments_area+button);
 				  }
 			  });
 			  $(".comments_detail").on('click','.comment_button',function(){
-				  var comment = $(this).closest(".comments_detail").find(".coment_content").val();
-				  alert(comment);
-			  }); 
-			  
-	    });
-		
-		
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$("#share").click(function(){
-				$.post("/weibo/${user.getUid()}/statuses/publish",
+				  var statuesid = $(this).parent().data('statusid');
+				  var comment = $(this).closest(".comments_detail").find(".comment_content");
+				  $.post("/weibo/${user.getUid()}/statuses/commment",
 						  {
-							message:$('#message').val()
+					  			statues_id:statuesid,
+					  			comment_content:comment.val()
 						  },
 						  function(data,status){
 							if(status == 'success'){
-								alert("发送成功");
-								$('#message').val("");
+								comment.val("");
+								alert("评论成功");
 							}
 						   
-						  });
-			});
-		});
+				});
+				  
+			  }); 
+			  $("#share").click(function(){
+					$.post("/weibo/${user.getUid()}/statuses/publish",
+							  {
+								message:$('#message').val()
+							  },
+							  function(data,status){
+								if(status == 'success'){
+									alert("发送成功");
+									$('#message').val("");
+								}
+							   
+							  });
+				});
+			  
+	    });	
+		
 	</script>
 </head>
 <body>

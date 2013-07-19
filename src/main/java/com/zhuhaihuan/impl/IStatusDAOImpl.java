@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 import com.zhuhaihuan.dao.IStatusDAO;
+import com.zhuhaihuan.domain.Comments;
 import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
 import com.zhuhaihuan.domain.User;
@@ -36,5 +37,11 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 	public List<Status> getMyStatus(User user) {
 		// TODO Auto-generated method stub
 		return this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findMyStatus",user); 
+	}
+	@Override
+	public void postComment(Comments comment) {
+		// TODO Auto-generated method stub
+		this.session.insert("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.addComment",comment);
+		
 	}
 }

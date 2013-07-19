@@ -28,14 +28,12 @@ public class StatusController {
 	@Autowired 
 	AttentionService attentionService;
 	
-	
 	private Logger log =Logger.getLogger(getClass());
 	
 	@RequestMapping(value="/publish",method=RequestMethod.POST)
     public @ResponseBody String publish(HttpServletRequest request, Model model) {
 		ModelHelper.init(model, request);
 		User user = userService.getCurrentUser(request.getSession());
-		log.info(user.toString());
 		String content = request.getParameter("message");
 		statusService.addStatus(user,content);		
 		return "success";
@@ -60,5 +58,14 @@ public class StatusController {
 		model.addAttribute("pagedStatus", page);
 		return "home";
 	}
+	@RequestMapping(value="/commment",method=RequestMethod.POST)
+	public @ResponseBody String postComment(HttpServletRequest request, Model model) {
+		User user = userService.getCurrentUser(request.getSession());
+		String statuesId = request.getParameter("statues_id");
+		String content = request.getParameter("comment_content");
+		statusService.postComments(user, statuesId,content);
+		return "success";
+	}
+	
 
 }

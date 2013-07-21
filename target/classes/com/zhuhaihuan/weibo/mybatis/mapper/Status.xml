@@ -24,5 +24,21 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <select id="findMyStatus" resultMap="statusResultMap" parameterType="User">  
         select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email  
         from status m,user u where m.uid=u.uid and m.uid = ${uid}
-    </select>   
+    </select>  
+    <select id="getComments" resultMap="commentsResultMap" parameterType="String">
+    	select c.comment_id,c.user_id,c.statues_id,c.content,u.username,u.email    
+        from comments c,user u where c.user_id=u.uid and c.statues_id = #{statuesId}
+    </select> 
+    <resultMap type="Comments" id="commentsResultMap">  
+        <id property="commentId" column="comment_id" />  
+        <result property="statusId" column="statues_id" />  
+        <result property="content" column="content" />   
+        <association property="user" column="user_id"  
+            javaType="User" resultMap="com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.userResultMap" />  
+    </resultMap> 
+    <insert id="addComment" parameterType="Comments"
+     useGeneratedKeys="true" keyProperty="comment_id"> 
+        INSERT INTO comments(user_id,statues_id,content) 
+        VALUES(#{user.uid},#{statusId},#{content}) 
+    </insert>
 </mapper>

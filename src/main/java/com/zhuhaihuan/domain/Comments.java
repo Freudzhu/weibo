@@ -30,5 +30,10 @@ public class Comments {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	@Override
+	public String toString() {
+		return "Comments [commentId=" + commentId + ", statusId=" + statusId
+				+ ", user=" + user + ", content=" + content + "]";
+	}
 
 }

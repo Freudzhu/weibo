@@ -44,4 +44,9 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 		this.session.insert("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.addComment",comment);
 		
 	}
+	@Override
+	public List<Comments> getCommnets(String statuesId) {
+		List<Comments> comments = this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.getComments",statuesId);
+		return comments;
+	}
 }

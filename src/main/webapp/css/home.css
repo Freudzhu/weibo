@@ -90,8 +90,39 @@ h2 {
 }
 .comment_content{
 	overflow:hidden;
-	margin:10px;width:480px;
+	margin:10px;
+	width:480px;
 	word-wrap: break-word;
 	line-height: 18px;
 	overflow-y:visible;
+}
+.comments_area{
+	float:left;
+	width:480px;
+}
+.commment_list{
+	float:left;
+	width:480px;
+}
+dt{
+	width: 55px;
+	padding: 3px 0 0;
+	float:left;
+}
+dd{
+	line-height: 21px;
+	word-wrap: break-word;
+	zoom: 1;
+	vertical-align: text-bottom;
+	margin-left:70px;
+}
+dl{
+	clear:left;
+	line-height: 20px;
+	border-color: #d9d9d9
+	padding: 10px 0;
+	margin: -1px 0 0;
+	border-width: 1px 0 0;
+	border-style: solid;
+	zoom: 1;
 }

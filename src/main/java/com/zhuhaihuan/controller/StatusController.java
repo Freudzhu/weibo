@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhuhaihuan.domain.Comments;
 import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
 import com.zhuhaihuan.domain.User;
@@ -66,6 +67,13 @@ public class StatusController {
 		statusService.postComments(user, statuesId,content);
 		return "success";
 	}
+	@RequestMapping(value="/commment",method=RequestMethod.GET,produces = "application/json")
+	public @ResponseBody List<Comments>  getComment(HttpServletRequest request, Model model) {
+		String statuesId = request.getParameter("statuesid");
+		List<Comments> comments = statusService.getComments(statuesId);
+		return comments;
+	}
+
 	
 
 }

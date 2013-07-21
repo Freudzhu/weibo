@@ -8,11 +8,24 @@
              http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  
              http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd              
              http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">   
-     <context:annotation-config /> 
+     <context:annotation-config />
+     <mvc:annotation-driven /> 
      <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 需要更改 -->
      <context:component-scan base-package="com.zhuhaihuan.controller" />
-     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
- 
+     <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" >
+     	<property name="messageConverters">  
+        	<util:list id="beanList">  
+            	<ref bean="mappingJacksonHttpMessageConverter"/>  
+        	</util:list>  
+    	</property>
+    </bean>  
+    <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  
+    	<property name="supportedMediaTypes">  
+        	<list>  
+            	<value>text/html;charset=UTF-8</value>   
+        	</list>  
+    	</property>  
+	</bean>  
      <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
      	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
          <property name="prefix">
@@ -22,7 +35,6 @@
              <value>.jsp</value>
          </property>
      </bean>
-     
      <bean id="multipartResolver" 
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
         <!-- set the max upload size100MB --> 

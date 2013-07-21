@@ -11,20 +11,41 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			  $(".wb_form").on('click','.do_comment',function(){
-				  var comments_area="<textarea class='comment_content'></textarea>";
-				  var button = "<button class='comment_button' type='button'>评论</button>";
 				  var comment_detail = $(this).closest(".wb_bottom").find(".comments_detail");
+				  var statuesid = comment_detail.data('statusid');
+				  var comments_area="<div class='comments_area'><textarea class='comment_content'></textarea>";
+				  var button = "<button class='comment_button' type='button'>评论</button></div><div class='commment_list'></div>";
+				  
 				  if(comment_detail.find(".comment_content").length > 0){
 					  comment_detail.empty();
-					  
 				  }
 				  else{
 					  comment_detail.append(comments_area+button);
+					  var comments_list = comment_detail.find(".commment_list");
+					  $.ajax({ 
+				          "url" : "/weibo/${user.getUid()}/statuses/commment?statuesid="+statuesid, 
+				          "type" : "GET", 
+				          "dateType" : "json", 
+				          "success" : function(data) { 
+				        	  $.each(data,function(idx,item){   
+				        		  if(idx==0){   
+				        		  	return true;//同countinue，返回false同break   
+				        		  } 
+				        		  var comment = "<dl style='clear:left'><dt><img src='${ctxtPath}/image/1.jpg'</dt><dd style='font-size: 15px;font-weight: bold;'>"+item.user.username+":"+item.content+"</dd></dl>";
+				        		  comments_list.append(comment);
+				          	});
+				          }
+				        	 
+					  });
 				  }
+				  
+				  
 			  });
 			  $(".comments_detail").on('click','.comment_button',function(){
-				  var statuesid = $(this).parent().data('statusid');
-				  var comment = $(this).closest(".comments_detail").find(".comment_content");
+				  
+				  var statuesid = $(this).parent().parent().data('statusid');
+				  var comment_detail = $(this).closest(".comments_detail");
+				  var comment = comment_detail.find(".comment_content");
 				  $.post("/weibo/${user.getUid()}/statuses/commment",
 						  {
 					  			statues_id:statuesid,
@@ -33,10 +54,27 @@
 						  function(data,status){
 							if(status == 'success'){
 								comment.val("");
-								alert("评论成功");
-							}
-						   
-				});
+							}  
+					});
+				  var comments_list = comment_detail.find(".commment_list");
+				  comments_list.empty();
+				  $.ajax({ 
+			          "url" : "/weibo/${user.getUid()}/statuses/commment?statuesid="+statuesid, 
+			          "type" : "GET", 
+			          "dateType" : "json", 
+			          "success" : function(data) { 
+			        	  $.each(data,function(idx,item){   
+			        		  if(idx==0){   
+			        		  	return true;//同countinue，返回false同break   
+			        		  } 
+			        		  var comment = "<dl style='clear:left'><dt><img src='${ctxtPath}/image/1.jpg'</dt><dd style='font-size: 15px;font-weight: bold;'>"+item.user.username+":"+item.content+"</dd></dl>";
+			        		  comments_list.append(comment);
+			          	});
+			          }
+			        	 
+				  });
+				  
+				  
 				  
 			  }); 
 			  $("#share").click(function(){

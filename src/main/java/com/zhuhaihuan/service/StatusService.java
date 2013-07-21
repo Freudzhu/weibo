@@ -40,4 +40,7 @@ public class StatusService {
 		comment.setContent(content);
 		statusDAO.postComment(comment);
 	}
+	public List<Comments> getComments(String statuesId){
+		return statusDAO.getCommnets(statuesId);
+	}
 }

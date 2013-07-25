@@ -1,12 +1,25 @@
 package com.zhuhaihuan.domain;
 import java.util.Date;
-
 public class Status {
 	Integer id;
 	User user;
 	String content;
 	Date createtime;
 	Date updatetime;
+	long commmentCount;
+	public long getCommmentCount() {
+		return commmentCount;
+	}
+	public void setCommmentCount(long commmentCount) {
+		this.commmentCount = commmentCount;
+	}
+	public long getForwardCount() {
+		return forwardCount;
+	}
+	public void setForwardCount(long forwardCount) {
+		this.forwardCount = forwardCount;
+	}
+	long forwardCount;
 	public User getUser() {
 		return user;
 	}

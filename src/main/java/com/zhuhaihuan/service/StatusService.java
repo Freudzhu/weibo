@@ -4,7 +4,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.zhuhaihuan.domain.Comments;
 import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
@@ -24,8 +23,11 @@ public class StatusService {
 		statusDAO.add(status);
 	}
 	public List<Status> getStatus(Page<Status> page,User user){
-		List<Status> statuss = statusDAO.getALLStatus(page,user);
-		return statuss;
+		List<Status> statuses = statusDAO.getALLStatus(page,user);
+		for(Status s : statuses){
+			s.setCommmentCount(statusDAO.getCommentsCount(s.getId().toString()));
+		}
+		return statuses;
 
 	}
 	public List<Status> getMyStatus(User user){
@@ -42,5 +44,8 @@ public class StatusService {
 	}
 	public List<Comments> getComments(String statuesId){
 		return statusDAO.getCommnets(statuesId);
+	}
+	public long getCommnetsCount(String statuesId){
+		return statusDAO.getCommentsCount(statuesId);
 	}
 }

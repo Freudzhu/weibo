@@ -10,4 +10,5 @@ public interface IStatusDAO {
 	public List<Status> getMyStatus(User user);
 	public void postComment(Comments comment);
 	public List<Comments> getCommnets(String statusId);
+	public long getCommentsCount(String statusId);
 }

@@ -49,4 +49,10 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 		List<Comments> comments = this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.getComments",statuesId);
 		return comments;
 	}
+	@Override
+	public long getCommentsCount(String statusId) {
+		// TODO Auto-generated method stub
+		long commentsCount  = this.session.selectOne("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.getCommentsCount",statusId);
+		return commentsCount;
+	}
 }

@@ -77,12 +77,21 @@ h2 {
 	height:54px;
 }
 .wb_bottom{
-	
+	 clear:both;
 }
 .wb_time{
-	float: left;
+	float:left;
 	padding: 4px 0 4px;
 	margin-left:10px;
+}
+.wb_forward_form{
+	float: right;
+	color: #0a8cd2;
+}
+.wb_forward_time{
+	float:left;
+	padding: 4px 0 4px;
+	margin-left:60px;
 }
 .comment_button{
 	float: right;
@@ -125,4 +134,7 @@ dl{
 	border-width: 1px 0 0;
 	border-style: solid;
 	zoom: 1;
+}
+.forwardstatus{
+	margin-bottom:10px;
 }

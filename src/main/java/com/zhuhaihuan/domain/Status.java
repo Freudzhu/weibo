@@ -7,6 +7,13 @@ public class Status {
 	Date createtime;
 	Date updatetime;
 	long commmentCount;
+	Status forward;
+	public Status getForward() {
+		return forward;
+	}
+	public void setForward(Status forward) {
+		this.forward = forward;
+	}
 	public long getCommmentCount() {
 		return commmentCount;
 	}

@@ -129,13 +129,38 @@
 						<img src="${ctxtPath}/image/1.jpg"/>
 					</div>
 					<div class="wb_detail">
-				
 						<div class="acoount_name">
 							${status.getUser().getUsername()}
 						</div>
 						<div class="wb_text">
 							${status.getContent()}
 						</div>
+						<c:if test="${status.getForward()!=null}">
+							<div class="forwardstatus">
+								<div class="wb_detail">
+									<div class="acoount_name">
+										${status.getForward().getUser().getUsername()}
+									</div>
+									<div class="wb_text">
+										${status.getForward().getContent()}
+									</div>
+								</div>
+								<div class="wb_bottom">
+									<div class="wb_forward_time">
+										${status.getForward().getCreatetime()}
+									</div>
+									<div class="wb_forward_form">
+										<a href="javascript:void(0);">赞(12)</a>
+										<i class="S_txt3">|</i>
+										<a href="javascript:void(0);">转发(13)</a>
+										<i class="S_txt3">|</i>
+										<a href="javascript:void(0);">收藏(2)</a>
+										<i class="S_txt3">|</i>
+										<a href="javascript:void(0);" class="do_comment" data-commment-count='${status.getForward().getCommmentCount()}'>评论(${status.getForward().getCommmentCount()})</a>								
+									</div>
+								</div>
+							</div>
+						</c:if>
 						<div class="wb_bottom">
 							<div class="wb_time">
 								${status.getCreatetime()}
@@ -153,8 +178,6 @@
 							
 							</div>
 						</div>
-						
-					
 					</div>
 				</div>
 			</c:forEach>

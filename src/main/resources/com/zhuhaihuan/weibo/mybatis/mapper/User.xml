@@ -23,5 +23,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     	<result property="username" column="username" />  
     	<result property="email" column="email" />  
     	<result property="password" column="password"/>   
+	</resultMap>
+	<resultMap type="User" id="forwardUserMap">  
+    	<id property="uid" column="forwarduid" />  
+    	<result property="username" column="forwardusernmae" />  
+    	<result property="email" column="forwardemail" />     
 	</resultMap> 
 </mapper>

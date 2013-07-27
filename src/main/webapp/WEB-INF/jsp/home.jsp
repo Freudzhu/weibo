@@ -7,7 +7,15 @@
 	<meta content='text/html; charset=UTF-8' http-equiv='content-type'>
 	<title>Gossip 微网志</title>
 	<link rel='stylesheet' href="${ctxtPath}/css/home.css" type='text/css'>
+	<link type="text/css" href="${ctxtPath}/css/jquery.ui.all.css" rel="stylesheet" />
 	<script src="/weibo/js/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/weibo/js/jquery.ui.core.js"></script>
+  	<script type="text/javascript" src="/weibo/js/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="/weibo/js/jquery.ui.mouse.js"></script>
+	<script type="text/javascript" src="/weibo/js/jquery.ui.button.js"></script>
+	<script type="text/javascript" src="/weibo/js/jquery.ui.draggable.js"></script>
+	<script type="text/javascript" src="/weibo/js/jquery.ui.position.js"></script>
+	<script type="text/javascript" src="/weibo/js/jquery.ui.dialog.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
 			  $(".wb_form").on('click','.do_comment',function(){
@@ -91,6 +99,34 @@
 							   
 							  });
 				});
+			  $( "#dialog-form" ).dialog({
+			      autoOpen: false,
+			      height: 300,
+			      width: 500,
+			      modal: true,
+			      buttons: {
+			    	      "转发": function() {
+			    	    	  $.post("/weibo/${user.getUid()}/statuses/publish",
+									  {
+										message:$(this).find('#message').val(),
+										fowardid:$(this).find('#forwardid').val()
+									  },
+									  function(data,status){
+										if(status == 'success'){
+											$('#dialog-form').dialog('close');
+										}
+									   
+							  });
+			    	      }
+			     }
+			   });
+			  $(".wb_form").on('click','.do_forwrad',function(){
+				  var content = $(this).closest('.wb_detail').find('.wb_text').text();
+				  var forwardid = $(this).closest('.wb_bottom').find('.comments_detail').data('statusid');
+				  $("#dialog-form").find('.content').text(content);
+				  $("#dialog-form").find('#forwardid').val(forwardid);
+				  $("#dialog-form" ).dialog( "open" );
+			  });
 			  
 	    });	
 		
@@ -152,7 +188,7 @@
 									<div class="wb_forward_form">
 										<a href="javascript:void(0);">赞(12)</a>
 										<i class="S_txt3">|</i>
-										<a href="javascript:void(0);">转发(13)</a>
+										<a href="javascript:void(0);" >转发(13)</a>
 										<i class="S_txt3">|</i>
 										<a href="javascript:void(0);">收藏(2)</a>
 										<i class="S_txt3">|</i>
@@ -168,7 +204,7 @@
 							<div class="wb_form">
 								<a href="javascript:void(0);">赞(12)</a>
 								<i class="S_txt3">|</i>
-								<a href="javascript:void(0);">转发(13)</a>
+								<a href="javascript:void(0);" class="do_forwrad">转发(13)</a>
 								<i class="S_txt3">|</i>
 								<a href="javascript:void(0);">收藏(2)</a>
 								<i class="S_txt3">|</i>
@@ -205,6 +241,13 @@
 		</ul>
 	</div>
 	<div id="footer">CopyRight zhuhiahuan</div>
+</div>
+<div id="dialog-form" title="转发微博">
+    <label for="content">原微博：</label>
+    <p class="content"></p>
+   	<textarea cols='60' rows='4' id='message'></textarea><br>
+   	<input type='hidden' id='forwardid' VALUE="">
+	<br>
 </div>
 </body>
 </html>

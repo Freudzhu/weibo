@@ -1,6 +1,8 @@
 package com.zhuhaihuan.service;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +16,16 @@ public class StatusService {
 	private Logger log =Logger.getLogger(getClass());
 	@Autowired
 	private IStatusDAOImpl statusDAO;
-	public void addStatus(User user,String content){
+	public void addStatus(User user,String content,String forwardId){
 		Status status =new Status();
 		status.setUser(user);
 		status.setContent(content);
 		status.setCreatetime(new Date());
 		status.setUpdatetime(new Date());
+		if(!StringUtils.isEmpty(forwardId))
+			status.setForwardid(Integer.parseInt(forwardId));
 		statusDAO.add(status);
+		
 	}
 	public List<Status> getStatus(Page<Status> page,User user){
 		List<Status> statuses = statusDAO.getALLStatus(page,user);

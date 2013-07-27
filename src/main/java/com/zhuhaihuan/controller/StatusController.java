@@ -33,7 +33,8 @@ public class StatusController {
 		ModelHelper.init(model, request);
 		User user = userService.getCurrentUser(request.getSession());
 		String content = request.getParameter("message");
-		statusService.addStatus(user,content);		
+		String forwardId = request.getParameter("fowardid");
+		statusService.addStatus(user,content,forwardId);		
 		return "success";
 	}
 	@RequestMapping("/timeline")

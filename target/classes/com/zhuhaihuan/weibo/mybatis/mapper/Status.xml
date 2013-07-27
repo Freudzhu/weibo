@@ -6,12 +6,12 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <!-- 定义一条查询语句，在bean的implementation中会引用此语句的id --> 
     <insert id="add" parameterType="Status"
      useGeneratedKeys="true" keyProperty="id"> 
-        INSERT INTO status(uid,content,createtime,updatetime) 
-        VALUES(#{user.uid},#{content},#{createtime},#{updatetime}) 
+        INSERT INTO status(uid,content,createtime,updatetime,forwardid) 
+        VALUES(#{user.uid},#{content},#{createtime},#{updatetime},#{forwardid}) 
     </insert>
     <select id="findStatusesByUser" resultMap="statusResultMap" parameterType="map">  
          select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email,forward.id as forwardid,forward.content as forwardcontent,forward.uid as forwarduid,forward.createtime as forwardcreatetime,forward.updatetime as forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
-        from status m left join status forward on forward.id = m.forwardid left join user f on f.uid = forward.uid ,user u where m.uid=u.uid and m.uid in (select uuid from attention a where a.uid= ${uid})
+        from status m left join status forward on forward.id = m.forwardid left join user f on f.uid = forward.uid ,user u where m.uid=u.uid and m.uid in (select uuid from attention a where a.uid= ${uid}) order by m.createtime DESC
     </select>  
     <resultMap type="Status" id="statusResultMap">  
         <id property="id" column="id" />  

@@ -8,13 +8,15 @@ public class Status {
 	Date updatetime;
 	long commmentCount;
 	Integer forwardid;
+	Status forward;
+	long forwardCount;
 	public Integer getForwardid() {
 		return forwardid;
 	}
 	public void setForwardid(Integer forwardid) {
 		this.forwardid = forwardid;
 	}
-	Status forward;
+	
 	public Status getForward() {
 		return forward;
 	}
@@ -33,7 +35,7 @@ public class Status {
 	public void setForwardCount(long forwardCount) {
 		this.forwardCount = forwardCount;
 	}
-	long forwardCount;
+
 	public User getUser() {
 		return user;
 	}

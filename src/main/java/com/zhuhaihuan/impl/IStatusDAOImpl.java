@@ -55,4 +55,9 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 		long commentsCount  = this.session.selectOne("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.getCommentsCount",statusId);
 		return commentsCount;
 	}
+	@Override
+	public void updateForwardCount(String statusId) {
+		// TODO Auto-generated method stub
+		this.session.update("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.updateForwardCount",statusId);
+	}
 }

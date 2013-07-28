@@ -11,4 +11,5 @@ public interface IStatusDAO {
 	public void postComment(Comments comment);
 	public List<Comments> getCommnets(String statusId);
 	public long getCommentsCount(String statusId);
+	public void updateForwardCount(String statusId);
 }

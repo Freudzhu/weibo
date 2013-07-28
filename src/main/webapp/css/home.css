@@ -135,5 +135,12 @@ dl{
 	zoom: 1;
 }
 .forwardstatus{
+	background-color: #f2f2f2;
 	margin-bottom:10px;
+	border-width: 1px;
+	border-style: solid;
+	padding: 10px 20px 10px;
+	margin: 5px 0 15px;
+	border-radius: 3px;
+}
 }

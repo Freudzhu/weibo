@@ -1,7 +1,6 @@
 package com.zhuhaihuan.service;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +21,11 @@ public class StatusService {
 		status.setContent(content);
 		status.setCreatetime(new Date());
 		status.setUpdatetime(new Date());
-		if(!StringUtils.isEmpty(forwardId))
+		if(!StringUtils.isEmpty(forwardId)){
 			status.setForwardid(Integer.parseInt(forwardId));
+			statusDAO.updateForwardCount(forwardId);
+		}
+			
 		statusDAO.add(status);
 		
 	}

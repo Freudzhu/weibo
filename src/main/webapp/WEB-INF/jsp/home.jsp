@@ -122,7 +122,13 @@
 			   });
 			  $(".wb_form").on('click','.do_forwrad',function(){
 				  var content = $(this).closest('.wb_detail').find('.wb_text').text();
-				  var forwardid = $(this).closest('.wb_bottom').find('.comments_detail').data('statusid');
+				  var forwardid;
+				  if($(this).closest('.wb_detail').find('.forwardstatus').length != 0){
+					  forwardid = $(this).closest('.wb_detail').find('.forwardstatus').data('statusid');
+				  }
+				  else{
+					  forwardid = $(this).closest('.wb_bottom').find('.comments_detail').data('statusid');
+				  }
 				  $("#dialog-form").find('.content').text(content);
 				  $("#dialog-form").find('#forwardid').val(forwardid);
 				  $("#dialog-form" ).dialog( "open" );
@@ -171,9 +177,9 @@
 						<div class="wb_text">
 							${status.getContent()}
 						</div>
-						<c:if test="${status.getForward()!=null}">
-							<div class="forwardstatus">
-								<div class="wb_detail">
+						<c:if test="${status.getForward().getUser()!=null}">
+							<div class="forwardstatus" data-statusid='${status.getForward().getId()}'>
+								<div class="wb_detail" >
 									<div class="acoount_name">
 										${status.getForward().getUser().getUsername()}
 									</div>
@@ -188,13 +194,14 @@
 									<div class="wb_forward_form">
 										<a href="javascript:void(0);">赞(12)</a>
 										<i class="S_txt3">|</i>
-										<a href="javascript:void(0);" >转发(13)</a>
+										<a href="javascript:void(0);" >转发(${status.getForward().getForwardCount()})</a>
 										<i class="S_txt3">|</i>
 										<a href="javascript:void(0);">收藏(2)</a>
 										<i class="S_txt3">|</i>
 										<a href="javascript:void(0);" class="do_comment" data-commment-count='${status.getForward().getCommmentCount()}'>评论(${status.getForward().getCommmentCount()})</a>								
 									</div>
 								</div>
+								<br style="clear:both;" /> 
 							</div>
 						</c:if>
 						<div class="wb_bottom">
@@ -204,7 +211,7 @@
 							<div class="wb_form">
 								<a href="javascript:void(0);">赞(12)</a>
 								<i class="S_txt3">|</i>
-								<a href="javascript:void(0);" class="do_forwrad">转发(13)</a>
+								<a href="javascript:void(0);" class="do_forwrad">转发(${status.getForwardCount()})</a>
 								<i class="S_txt3">|</i>
 								<a href="javascript:void(0);">收藏(2)</a>
 								<i class="S_txt3">|</i>

@@ -10,14 +10,15 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         VALUES(#{user.uid},#{content},#{createtime},#{updatetime},#{forwardid}) 
     </insert>
     <select id="findStatusesByUser" resultMap="statusResultMap" parameterType="map">  
-         select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email,forward.id as forwardid,forward.content as forwardcontent,forward.uid as forwarduid,forward.createtime as forwardcreatetime,forward.updatetime as forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
+         select m.id,m.uid,m.createtime,m.updatetime,m.content,m.forwardcount,u.username,u.email,forward.id as forwardid,forward.forwardcount as forwardforwardcount,forward.content as forwardcontent,forward.uid as forwarduid,forward.createtime as forwardcreatetime,forward.updatetime as forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
         from status m left join status forward on forward.id = m.forwardid left join user f on f.uid = forward.uid ,user u where m.uid=u.uid and m.uid in (select uuid from attention a where a.uid= ${uid}) order by m.createtime DESC
     </select>  
     <resultMap type="Status" id="statusResultMap">  
         <id property="id" column="id" />  
         <result property="content" column="content" />  
         <result property="createtime" column="createtime" />  
-        <result property="updatetime" column="updatetime" />  
+        <result property="updatetime" column="updatetime" /> 
+        <result property="forwardCount" column="forwardcount" />  
         <association property="user" column="uid"  
             javaType="User" resultMap="com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.userResultMap" /> 
         <association property="forward" column="forwardid"  
@@ -28,6 +29,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         <result property="content" column="forwardcontent" />  
         <result property="createtime" column="forwardcreatetime" />  
         <result property="updatetime" column="forwardupdatetime" />  
+        <result property="forwardCount" column="forwardforwardcount" /> 
         <association property="user" column="forwarduid"  
             javaType="User" resultMap="com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.forwardUserMap" /> 
     </resultMap>
@@ -55,4 +57,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         INSERT INTO comments(user_id,statues_id,content) 
         VALUES(#{user.uid},#{statusId},#{content}) 
     </insert>
+    <update id="updateForwardCount" parameterType="String">
+    	update status set forwardcount = forwardcount + 1  where id = #{statuesId}
+	</update>
 </mapper>

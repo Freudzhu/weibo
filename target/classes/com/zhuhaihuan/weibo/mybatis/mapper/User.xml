@@ -18,6 +18,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
      <select id="searchUser" resultType="User" parameterType="String"> 
         select * FROM user where username like #{username}
     </select>
+     <select id="findUidByUsername" resultType="String" parameterType="String"> 
+        select uid FROM user where username = #{username}
+    </select>
     <resultMap type="User" id="userResultMap">  
     	<id property="uid" column="uid" />  
     	<result property="username" column="username" />  

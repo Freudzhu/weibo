@@ -31,4 +31,11 @@ public class IUserDAOImpl extends BasicSqlSupport implements IUserDAO{
 		List<User> resultUsers = this.session.selectList("com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.searchUser",username);
 		return resultUsers;
 	}
+
+	@Override
+	public String findUidByUsername(String username) {
+		// TODO Auto-generated method stub
+		String uid = this.session.selectOne("com.zhuhaihuan.weibo.mybatis.mapper.weibo.user.findUidByUsername",username);
+		return uid;
+	}
 }

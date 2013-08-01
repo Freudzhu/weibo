@@ -1,5 +1,7 @@
 package com.zhuhaihuan.controller;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.zhuhaihuan.domain.Page;
 import com.zhuhaihuan.domain.Status;
 import com.zhuhaihuan.domain.User;
 import com.zhuhaihuan.service.AttentionService;
+import com.zhuhaihuan.service.MessageService;
 import com.zhuhaihuan.service.StatusService;
 import com.zhuhaihuan.service.UserService;
 import com.zhuhaihuan.web.ModelHelper;
@@ -24,7 +27,9 @@ public class StatusController {
 	@Autowired
 	private UserService userService;
 	@Autowired 
-	AttentionService attentionService;
+	private AttentionService attentionService;
+	@Autowired 
+	private MessageService messageService;
 	
 	private Logger log =Logger.getLogger(getClass());
 	
@@ -34,6 +39,7 @@ public class StatusController {
 		User user = userService.getCurrentUser(request.getSession());
 		String content = request.getParameter("message");
 		String forwardId = request.getParameter("fowardid");
+		processAtFun(content,forwardId);
 		statusService.addStatus(user,content,forwardId);		
 		return "success";
 	}
@@ -70,6 +76,21 @@ public class StatusController {
 		String statuesId = request.getParameter("statuesid");
 		List<Comments> comments = statusService.getComments(statuesId);
 		return comments;
+	}
+	public void processAtFun(String preProcessText,String forwardid){
+		if(preProcessText.contains("@")){
+			Pattern referer_pattern = Pattern.compile("@.+ ");
+			Matcher matchr = referer_pattern.matcher(preProcessText);
+			while(matchr.find()){
+				String origion_str = matchr.group();
+				String username = origion_str.substring(1,origion_str.length());
+				log.debug("@username:"+username);
+				String uid = userService.findUidByUsername(username);
+				Status forwardStatus = statusService.getStatusById(forwardid);
+				messageService.addMessage(forwardStatus, uid, preProcessText);
+				log.debug("@username uid:"+uid);
+			}
+		}
 	}
 
 	

@@ -56,4 +56,8 @@ public class UserService {
 	public User getCurrentUser(HttpSession session){
 		return SessionHelper.getCurrentUser(session);
 	}
+	public String findUidByUsername(String username){
+		String uid = userDao.findUidByUsername(username);
+		return uid;
+	}
 }

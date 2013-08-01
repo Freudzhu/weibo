@@ -60,4 +60,9 @@ public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 		// TODO Auto-generated method stub
 		this.session.update("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.updateForwardCount",statusId);
 	}
+	@Override
+	public Status getStatusById(String statusId) {
+		// TODO Auto-generated method stub
+		return this.session.selectOne("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.findStatusesById",statusId);
+	}
 }

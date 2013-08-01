@@ -13,6 +13,10 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
          select m.id,m.uid,m.createtime,m.updatetime,m.content,m.forwardcount,u.username,u.email,forward.id as forwardid,forward.forwardcount as forwardforwardcount,forward.content as forwardcontent,forward.uid as forwarduid,forward.createtime as forwardcreatetime,forward.updatetime as forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
         from status m left join status forward on forward.id = m.forwardid left join user f on f.uid = forward.uid ,user u where m.uid=u.uid and m.uid in (select uuid from attention a where a.uid= ${uid}) order by m.createtime DESC
     </select>  
+    <select id="findStatusesById" resultMap="statusResultMap" parameterType="String">  
+         select m.id,m.uid,m.createtime,m.updatetime,m.content,m.forwardcount,u.username,u.email
+        from status m ,user u where m.uid=u.uid and m.id = #{forwardid}
+    </select> 
     <resultMap type="Status" id="statusResultMap">  
         <id property="id" column="id" />  
         <result property="content" column="content" />  
@@ -35,7 +39,7 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     </resultMap>
     <select id="findMyStatus" resultMap="statusResultMap" parameterType="User">  
         select m.id,m.uid,m.createtime,m.updatetime,m.content,u.username,u.email  
-        from status m,user u where m.uid=u.uid and m.uid = ${uid}
+        from status m,user u where m.uid=u.uid and m.uid = #{uid}
     </select>  
     <select id="getComments" resultMap="commentsResultMap" parameterType="String">
     	select c.comment_id,c.user_id,c.statues_id,c.content,u.username,u.email    

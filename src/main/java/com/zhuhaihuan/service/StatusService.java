@@ -55,4 +55,7 @@ public class StatusService {
 	public long getCommnetsCount(String statuesId){
 		return statusDAO.getCommentsCount(statuesId);
 	}
+	public Status getStatusById(String statusId){
+		return statusDAO.getStatusById(statusId);
+	}
 }

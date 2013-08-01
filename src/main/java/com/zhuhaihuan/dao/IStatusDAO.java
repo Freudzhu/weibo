@@ -8,6 +8,7 @@ public interface IStatusDAO {
 	public boolean add(Status status);
 	public List<Status> getALLStatus(Page<Status> page,User user);
 	public List<Status> getMyStatus(User user);
+	public Status getStatusById(String statusId);
 	public void postComment(Comments comment);
 	public List<Comments> getCommnets(String statusId);
 	public long getCommentsCount(String statusId);

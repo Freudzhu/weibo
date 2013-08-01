@@ -10,6 +10,8 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
         	alias="Status" /> 
         <typeAlias type="com.zhuhaihuan.domain.Attention" 
         	alias="Attention" />
+       	<typeAlias type="com.zhuhaihuan.domain.Message" 
+        	alias="Message" />
         <typeAlias type="com.zhuhaihuan.domain.Page" 
         	alias="Page" /> 
         	<typeAlias type="com.zhuhaihuan.domain.Comments" 
@@ -25,6 +27,6 @@ PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN"
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/User.xml" /> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Status.xml" /> 
         <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Attention.xml" /> 
+        <mapper resource="com/zhuhaihuan/weibo/mybatis/mapper/Message.xml" /> 
     </mappers> 
-    
 </configuration>

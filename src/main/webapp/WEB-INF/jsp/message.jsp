@@ -175,55 +175,49 @@
 	</div>
 	<div id="menu">
 		<ul class="nav nav-list" style="margin-top:20px">
-			<li class="active"><a href="/weibo/${user.getUid()}/statuses/timeline?pageNo=1">首页</a></li>
+			<li><a href="/weibo/${user.getUid()}/statuses/timeline?pageNo=1">首页</a></li>
 			<li class="divider"></li>
-			<li><a href="/weibo/${user.getUid()}/message?pageNo=1">消息</a></li>
+			<li class="active"><a href="/weibo/${user.getUid()}/message?pageNo=1">消息</a></li>
 			<li class="divider"></li>
 			<li>收藏</li>
 			<li class="divider"></li>
 		</ul>
 	</div>
 	<div id="content">
-			<form method='post' action="/weibo/${user.getUid()}/statuses/publish">
-				<h3>分享新鲜事</h3><br>
-				<textarea cols='500' rows='5' id='message' style="width:500px"></textarea>
-				<br>
-				<button type='button' id="share">送出</button>
-			</form>
-			<c:forEach var="status" items="${statuses}">
+			<c:forEach var="message" items="${messages}">
 				<div class="wb_feed_listitem">
 					<div class="account_image">
 						<img src="${ctxtPath}/image/1.jpg"/>
 					</div>
 					<div class="wb_detail">
 						<div class="acoount_name">
-							${status.getUser().getUsername()}
+							${message.getUser().getUsername()}
 						</div>
 						<div class="wb_text">
-							${status.getContent()}
+							${message.getContent()}
 						</div>
-						<c:if test="${status.getForward().getUser()!=null}">
+						<c:if test="${message.getForward().getUser()!=null}">
 							<div class="forwardstatus" data-statusid='${status.getForward().getId()}'>
 								<div class="wb_detail" >
 									<div class="acoount_name">
-										${status.getForward().getUser().getUsername()}
+										${message.getForward().getUser().getUsername()}
 									</div>
 									<div class="wb_text">
-										${status.getForward().getContent()}
+										${message.getForward().getContent()}
 									</div>
 								</div>
 								<div class="wb_bottom">
 									<div class="wb_forward_time">
-										${status.getForward().getCreatetime()}
+										${message.getForward().getCreatetime()}
 									</div>
 									<div class="wb_forward_form">
 										<a href="javascript:void(0);">赞(12)</a>
 										<i class="S_txt3">|</i>
-										<a href="javascript:void(0);" >转发(${status.getForward().getForwardCount()})</a>
+										<a href="javascript:void(0);" >转发(${message.getForward().getForwardCount()})</a>
 										<i class="S_txt3">|</i>
 										<a href="javascript:void(0);">收藏(2)</a>
 										<i class="S_txt3">|</i>
-										<a href="javascript:void(0);" class="do_comment" data-commment-count='${status.getForward().getCommmentCount()}'>评论(${status.getForward().getCommmentCount()})</a>								
+										<a href="javascript:void(0);" class="do_comment" data-commment-count='${message.getForward().getCommmentCount()}'>评论(${message.getForward().getCommmentCount()})</a>								
 									</div>
 								</div>
 								<br style="clear:both;" /> 
@@ -231,18 +225,18 @@
 						</c:if>
 						<div class="wb_bottom">
 							<div class="wb_time">
-								${status.getCreatetime()}
+								${message.getCreatetime()}
 							</div>
 							<div class="wb_form">
 								<a href="javascript:void(0);">赞(12)</a>
 								<i class="S_txt3">|</i>
-								<a href="javascript:void(0);" class="do_forwrad">转发(${status.getForwardCount()})</a>
+								<a href="javascript:void(0);" class="do_forwrad">转发(${message.getForwardCount()})</a>
 								<i class="S_txt3">|</i>
 								<a href="javascript:void(0);">收藏(2)</a>
 								<i class="S_txt3">|</i>
-								<a href="javascript:void(0);" class="do_comment" data-commment-count='${status.getCommmentCount()}'>评论(${status.getCommmentCount()})</a>								
+								<a href="javascript:void(0);" class="do_comment" data-commment-count='${message.getCommmentCount()}'>评论(${message.getCommmentCount()})</a>								
 							</div>
-							<div class="comments_detail" data-statusid='${status.getId()}'>
+							<div class="comments_detail" data-statusid='${message.getId()}'>
 							
 							</div>
 						</div>
@@ -250,27 +244,7 @@
 				</div>
 			</c:forEach>
 			<pageBar:PageBar pageAttrKey="pagedStatus"  pageUrl="/${user.getUid()}/statuses/timeline"/>
-			<hr style='width: 100%; height: 1px;'>
-			
-			
-	</div>
-	<div id="userinfo">
-		<a href='/weibo/logout.do'>登出 ${ sessionScope.login }</a>
-		<ul class="user_attent">
-			<li>
-				<span>关注 </span>
-				<strong>(${attentionCount})</strong>
-			</li>
-			<li>
-		   	 	<span>粉丝 </span>
-				<strong>(${followerCount})</strong>
-			
-			</li>
-			<li>
-		    <span>微博 </span>
-			<strong>(${statusCount})</strong>		
-			</li>
-		</ul>
+			<hr style='width: 100%; height: 1px;'>	
 	</div>
 	<div id="footer">CopyRight zhuhiahuan</div>
 </div>

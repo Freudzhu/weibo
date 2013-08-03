@@ -2,11 +2,33 @@ package com.zhuhaihuan.domain;
 import java.util.Date;
 public class Message {
 	Integer mid;
-	User user;
+	Integer id;
+	User reminder;
+	User publiser;
 	String content;
 	Date createtime;
 	Date updatetime;
+	long commmentCount;
+	long forwardCount;
 	Status forward;
+	public long getCommmentCount() {
+		return commmentCount;
+	}
+	public void setCommmentCount(long commmentCount) {
+		this.commmentCount = commmentCount;
+	}
+	public long getForwardCount() {
+		return forwardCount;
+	}
+	public void setForwardCount(long forwardCount) {
+		this.forwardCount = forwardCount;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public Status getForward() {
 		return forward;
 	}
@@ -14,10 +36,10 @@ public class Message {
 		this.forward = forward;
 	}
 	public User getUser() {
-		return user;
+		return publiser;
 	}
 	public void setUser(User user) {
-		this.user = user;
+		this.publiser = user;
 	}
 	public Integer getMid() {
 		return mid;

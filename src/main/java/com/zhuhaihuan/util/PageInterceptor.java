@@ -163,7 +163,7 @@ public class PageInterceptor implements Interceptor {
        //利用Configuration、查询记录数的Sql语句countSql、参数映射关系parameterMappings和参数对象page建立查询记录数对应的BoundSql对象。
        BoundSql countBoundSql = new BoundSql(mappedStatement.getConfiguration(), countSql, parameterMappings, page);
        //通过mappedStatement、参数对象page和BoundSql对象countBoundSql建立一个用于设定参数的ParameterHandler对象
-       ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, page, countBoundSql);
+       ParameterHandler parameterHandler = new DefaultParameterHandler(mappedStatement, map, countBoundSql);
        //通过connection建立一个countSql对应的PreparedStatement对象。
        PreparedStatement pstmt = null;
        ResultSet rs = null;

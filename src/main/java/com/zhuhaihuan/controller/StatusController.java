@@ -39,8 +39,9 @@ public class StatusController {
 		User user = userService.getCurrentUser(request.getSession());
 		String content = request.getParameter("message");
 		String forwardId = request.getParameter("fowardid");
-		processAtFun(content,forwardId);
-		statusService.addStatus(user,content,forwardId);		
+		
+		int newId = statusService.addStatus(user,content,forwardId);
+		processAtFun(content,forwardId,request,newId);
 		return "success";
 	}
 	@RequestMapping("/timeline")
@@ -77,7 +78,7 @@ public class StatusController {
 		List<Comments> comments = statusService.getComments(statuesId);
 		return comments;
 	}
-	public void processAtFun(String preProcessText,String forwardid){
+	public void processAtFun(String preProcessText,String forwardid,HttpServletRequest request,int newId){
 		if(preProcessText.contains("@")){
 			Pattern referer_pattern = Pattern.compile("@.+ ");
 			Matcher matchr = referer_pattern.matcher(preProcessText);
@@ -85,10 +86,11 @@ public class StatusController {
 				String origion_str = matchr.group();
 				String username = origion_str.substring(1,origion_str.length());
 				log.debug("@username:"+username);
-				String uid = userService.findUidByUsername(username);
+				String reminderId = userService.findUidByUsername(username);
+				log.debug("@username:"+reminderId);
+				String uid = userService.getCurrentUser(request.getSession()).getUid().toString();
 				Status forwardStatus = statusService.getStatusById(forwardid);
-				messageService.addMessage(forwardStatus, uid, preProcessText);
-				log.debug("@username uid:"+uid);
+				messageService.addMessage(forwardStatus, uid,reminderId, preProcessText,newId);
 			}
 		}
 	}

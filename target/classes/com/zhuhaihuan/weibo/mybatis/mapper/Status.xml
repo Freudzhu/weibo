@@ -6,6 +6,9 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
     <!-- 定义一条查询语句，在bean的implementation中会引用此语句的id --> 
     <insert id="add" parameterType="Status"
      useGeneratedKeys="true" keyProperty="id"> 
+     	<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">  
+          SELECT LAST_INSERT_ID() AS id    
+    	</selectKey>  
         INSERT INTO status(uid,content,createtime,updatetime,forwardid) 
         VALUES(#{user.uid},#{content},#{createtime},#{updatetime},#{forwardid}) 
     </insert>

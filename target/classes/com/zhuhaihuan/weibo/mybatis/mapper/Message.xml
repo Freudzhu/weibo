@@ -5,12 +5,15 @@ PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.zhuhaihuan.weibo.mybatis.mapper.weibo.message">
 	<insert id="add" parameterType="Message" 
         useGeneratedKeys="true" keyProperty="mid"> 
-        INSERT INTO message(content,creatime,updatetime,uid,fowarduid,fowardcontent,fowardcreatetime,fowardupdatetime,fowardforwardcount) 
-        VALUES(#{content},#{createtime},#{updatetime},#{publiser.uid},#{forward.user.uid},#{forward.content},#{forward.createtime},#{forward.updatetime},#{forward.forwardCount}) 
+        INSERT INTO message(content,creatime,updatetime,uid,id,forwarduid,forwardcontent,forwardcreatetime,forwardupdatetime,forwardforwardcount,reminderid) 
+        VALUES(#{content},#{createtime},#{updatetime},#{publiser.uid},#{id},#{forward.user.uid},#{forward.content},#{forward.createtime},#{forward.updatetime},#{forward.forwardCount},#{reminder.uid}) 
  	</insert> 
  	<select id="getAllMessage" resultMap="messageResultMap" parameterType="map">  
-         select m.id,m.uid,m.creatime,m.updatetime,m.content,u.username,u.email,forwardid,forwardcontent,forwarduid,forwardcreatetime,forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
-         from message m ,user u,user f where m.uid = u.uid and f.uid = forwarduid and m.reminderid = '2' order by m.creatime DESC
+         select m.id,m.uid,m.creatime,m.updatetime,m.content,u.username,u.email,m.forwardid,m.forwardcontent,m.forwarduid,m.forwardcreatetime,m.forwardupdatetime,f.username as forwardusernmae,f.email as forwardemail
+			from message m left join user f on m.forwarduid = f.uid,user u where m.uid = u.uid and m.reminderid = #{reminderid} order by m.creatime DESC 
+    </select>
+    <select id="newMessageCount" resultType="Integer" parameterType="Integer">  
+         select count(*) from message where flag = '0' and  reminderid = #{uid}
     </select>
     <resultMap type="Message" id="messageResultMap">  
         <id property="mid" column="mid" /> 

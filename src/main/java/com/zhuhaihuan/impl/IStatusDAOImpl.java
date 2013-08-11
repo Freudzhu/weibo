@@ -13,14 +13,10 @@ import com.zhuhaihuan.util.BasicSqlSupport;
 @Repository
 public class IStatusDAOImpl  extends BasicSqlSupport implements IStatusDAO{
 	@Override
-	public boolean add(Status status) {
+	public int add(Status status) {
 		// TODO Auto-generated method stub
-		 boolean flag=false; 
-	     int count=this.session.insert("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.add",status); 
-	     if(count>0){ 
-	          flag=true; 
-	     } 
-	     return flag;
+	     this.session.insert("com.zhuhaihuan.weibo.mybatis.mapper.weibo.status.add",status); 
+	     return status.getId();
 	}
 	@Override
 	public List<Status> getALLStatus(Page<Status> page,User user) {

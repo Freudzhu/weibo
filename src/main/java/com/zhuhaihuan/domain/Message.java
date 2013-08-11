@@ -4,6 +4,12 @@ public class Message {
 	Integer mid;
 	Integer id;
 	User reminder;
+	public User getReminder() {
+		return reminder;
+	}
+	public void setReminder(User reminder) {
+		this.reminder = reminder;
+	}
 	User publiser;
 	String content;
 	Date createtime;

@@ -30,5 +30,8 @@ public class IMessageDAOImpl extends BasicSqlSupport implements IMessageDAO{
 	    page.setResults(allMessage);
 	    return allMessage;
 	}
+	public int getNewMessageCount(String uid){
+		return  this.session.selectOne("com.zhuhaihuan.weibo.mybatis.mapper.weibo.message.newMessageCount", uid);
+	}
 
 }

@@ -15,7 +15,7 @@ public class StatusService {
 	private Logger log =Logger.getLogger(getClass());
 	@Autowired
 	private IStatusDAOImpl statusDAO;
-	public void addStatus(User user,String content,String forwardId){
+	public int addStatus(User user,String content,String forwardId){
 		Status status =new Status();
 		status.setUser(user);
 		status.setContent(content);
@@ -26,7 +26,7 @@ public class StatusService {
 			statusDAO.updateForwardCount(forwardId);
 		}
 			
-		statusDAO.add(status);
+		return  statusDAO.add(status);
 		
 	}
 	public List<Status> getStatus(Page<Status> page,User user){

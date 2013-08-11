@@ -12,6 +12,7 @@
 	<!-- Bootstrap -->
     <link href="${ctxtPath}/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<!-- 
 	<script src="/weibo/js/jquery-1.9.0.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="/weibo/js/jquery.ui.core.js"></script>
   	<script type="text/javascript" src="/weibo/js/jquery.ui.widget.js"></script>
@@ -20,9 +21,14 @@
 	<script type="text/javascript" src="/weibo/js/jquery.ui.draggable.js"></script>
 	<script type="text/javascript" src="/weibo/js/jquery.ui.position.js"></script>
 	<script type="text/javascript" src="/weibo/js/jquery.ui.dialog.js"></script>
+	-->
+	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="/weibo/js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
+			
+			setInterval("hasNewMessage()",3000);
+			
 			//是menu和微博的内容登高,chrome下面需要延迟等待元素加载完毕
 			setTimeout(function() {
 				var contentheight = jQuery("#content").height();
@@ -146,12 +152,25 @@
 			  });
 			  
 	    });	
+		function hasNewMessage(){
+			 $.ajax({ 
+		          "url" : "/weibo/${user.getUid()}/message/newMessageCount", 
+		          "type" : "GET", 
+		          "dateType" : "json", 
+		          "success" : function(data) { 
+		        	  if(data != '0');{
+		        		  $('.messageCount').text("您有"+data+"新消息了");
+		        		  $('.dropdown-toggle').click();
+		        	  }
+		          }
+		        	 
+			  });
+		}
 		
 	</script>
 </head>
 <body>
 <div id="container">
-	
 	<div id="header" class="navbar">
 		<div class="navbar-inner">
 		<div class="container">
@@ -167,6 +186,17 @@
 				<form class="navbar-search pull-left" method="get" action="/weibo/users/search">
   					<input type="text" class="search-query" placeholder="Search" id="query" name="query">
 				</form>
+				<ul class="nav pull-right" style="margin-right:400px;">
+					<li class="dropdown">
+						<a  id="messageReminder" class="dropdown-toggle" data-toggle="dropdown" data-target="">
+      						消息
+     					<b class="caret"></b>
+    					</a>
+    					<ul class="dropdown-menu">
+    						<li class="messageCount">您有0条消息</li>
+   					 	</ul>
+    				</li>
+				</ul>
       		</div>	
 		</div>
 	</div>

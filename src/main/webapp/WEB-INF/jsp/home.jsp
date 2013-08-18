@@ -152,15 +152,17 @@
 			  });
 			  
 	    });	
+		var preValue;
 		function hasNewMessage(){
 			 $.ajax({ 
 		          "url" : "/weibo/${user.getUid()}/message/newMessageCount", 
 		          "type" : "GET", 
 		          "dateType" : "json", 
-		          "success" : function(data) { 
-		        	  if(data != '0');{
+		          "success" : function(data) {
+		        	  if(data != '0' && preValue != data){
 		        		  $('.messageCount').text("您有"+data+"新消息了");
 		        		  $('.dropdown-toggle').click();
+		        		  preValue = data;
 		        	  }
 		          }
 		        	 
